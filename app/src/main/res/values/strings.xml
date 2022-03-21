@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">KotlinPractice</string>
+    <string name="app_name">Lemonade</string>
+    <string name="select_lemon">Click to select a lemon</string>
+    <string name="juice_the_lemon">Click to juice the lemon</string>
+    <string name="drink_lemon">Click to drink your lemonade!</string>
+    <string name="start_again">Click to start again!</string>
+    <string name="squeeze_count">Squeeze count: %1$d, keep squeezing!</string>
 </resources>
