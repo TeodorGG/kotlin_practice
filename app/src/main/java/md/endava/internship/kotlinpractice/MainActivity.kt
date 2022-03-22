@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.animation.doOnEnd
 import com.google.android.material.snackbar.Snackbar
 import java.lang.Thread.currentThread
 import java.lang.Thread.sleep
@@ -29,7 +30,6 @@ class MainActivity : AppCompatActivity(), MainActivityProvider.View {
         ivLemons = findViewById(R.id.ivLemons)
 
         ivLemons.setOnClickListener{
-            Log.d("tesaadsadsa", provider.canGoNext().toString())
             if(provider.canGoNext())
                 update(provider.nextStage())
         }
@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity(), MainActivityProvider.View {
 
     override fun scaleAnimation() {
         provider.updateGoNextState(false)
+
         val scalex = PropertyValuesHolder.ofFloat(View.SCALE_X, 1.1f)
         val scaley = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1.1f)
         val anim: ObjectAnimator = ObjectAnimator.ofPropertyValuesHolder(ivLemons, scalex, scaley)
@@ -80,11 +81,9 @@ class MainActivity : AppCompatActivity(), MainActivityProvider.View {
 
         anim.start()
 
-        Thread{
-            sleep(600)
+        anim.doOnEnd {
             provider.updateGoNextState(true)
-            currentThread().interrupt()
-        }.start()
+        }
     }
 
 
