@@ -13,7 +13,14 @@ class MainActivityProvider(var view : View) {
         }
         view.scaleAnimation()
 
+
         return model.stage
+    }
+
+    fun canGoNext() : Boolean = model.canGoNext
+
+    fun updateGoNextState(new_state : Boolean) {
+        model.canGoNext = new_state
     }
 
     public interface View{

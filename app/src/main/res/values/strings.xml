@@ -4,5 +4,5 @@
     <string name="juice_the_lemon">Click to juice the lemon</string>
     <string name="drink_lemon">Click to drink your lemonade!</string>
     <string name="start_again">Click to start again!</string>
-    <string name="squeeze_count">Squeeze count: %1$d, keep squeezing!</string>
+    <string name="squeeze_count">You drink: %1$d lemonade!</string>
 </resources>

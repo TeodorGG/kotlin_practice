@@ -4,11 +4,14 @@ import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 import android.animation.ValueAnimator
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import java.lang.Thread.currentThread
+import java.lang.Thread.sleep
 
 
 class MainActivity : AppCompatActivity(), MainActivityProvider.View {
@@ -26,7 +29,9 @@ class MainActivity : AppCompatActivity(), MainActivityProvider.View {
         ivLemons = findViewById(R.id.ivLemons)
 
         ivLemons.setOnClickListener{
-            update(provider.nextStage())
+            Log.d("tesaadsadsa", provider.canGoNext().toString())
+            if(provider.canGoNext())
+                update(provider.nextStage())
         }
 
         update(provider.nextStage())
@@ -65,17 +70,24 @@ class MainActivity : AppCompatActivity(), MainActivityProvider.View {
     }
 
     override fun scaleAnimation() {
+        provider.updateGoNextState(false)
         val scalex = PropertyValuesHolder.ofFloat(View.SCALE_X, 1.1f)
         val scaley = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1.1f)
         val anim: ObjectAnimator = ObjectAnimator.ofPropertyValuesHolder(ivLemons, scalex, scaley)
         anim.repeatCount = 1
         anim.repeatMode = ValueAnimator.REVERSE
         anim.duration = 300
-        if(anim.isRunning){
-            anim.cancel()
-        }
+
         anim.start()
+
+        Thread{
+            sleep(600)
+            provider.updateGoNextState(true)
+            currentThread().interrupt()
+        }.start()
     }
 
 
 }
+
+
